@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const {Schema} = mongoose;
 
 const userSchema = new Schema({
     firstName:{
         type:String,
         required:true,
     },
-    lastName:{
+    /*lastName:{
         type:String,
         required:true,
-    },
+    },*/
     email:{
         type:String,
         required:true,
@@ -19,24 +19,24 @@ const userSchema = new Schema({
         type:Number,
         require:true,
     },
-    address:{
+    /*address:{
         type:String,
         require:true,
-    },
-    rating:{
+    },*/
+    /*rating:{
         type:Number,
-    },
-    feddback:{
+    },*/
+    /*feddback:{
         type:String,
         require:true,
-    },
-    about:{
+    },*/
+   /* about:{
         type:String,
         require:true,
-    },
-    workDemo:{
+    },*/
+   /* workDemo:{
         type:Array,
-    },
+    },*/
     password:{
         type:String,
         required:true,

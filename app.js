@@ -10,7 +10,7 @@ require("dotenv").config();
 const app = express();
 
 app.use(bodyparser.json());
-app.use(cors);
+app.use(cors());
 
 // mongo connection
 const mongouri = process.env.MONGODBURI;
@@ -25,7 +25,12 @@ mongoose
     console.log("something went wrong! in DB connection");
     console.log("err: ", err);
   });
+//import route
+const userRoutes  =require("./routes/user.routes");
 
+
+//use roiutes
+app.use(userRoutes);
 // start server
 
 app.get("/", (req, res) => {
@@ -40,3 +45,5 @@ const port = process.env.port || 4000;
 server.listen(port, () => {
   console.log(` Server is running on port : ${port} `);
 });
+
+
