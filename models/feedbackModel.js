@@ -6,9 +6,12 @@ const SysFeedbackSchema = new Schema(
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: true,
     },
-    userFeedback: {
+    client: {
+      type: Schema.Types.ObjectId,
+      ref: "Client",
+    },
+    feedback: {
       type: String,
       required: true,
     },

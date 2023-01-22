@@ -6,11 +6,26 @@ const auth = require("../middlewares/auth");
 
 const {
   postBidApi,
-  getBidApi,
-  editBidApi,
-  editProposalApi,
+  getUserBidApi,
+  deleteBidApi,
+  getClientBidApi,
+  placeOrderApi,
+  getPlacedOrderApi,
+  getUserOrderApi,
+  getOrdersApi,
 } = require("../controllers/order.controller");
+
 // user
 router.post("/postBid/:id", auth, postBidApi);
+router.get("/getMyBid", auth, getUserBidApi);
+router.delete("/deleteMyBid/:id", auth, deleteBidApi);
+router.get("/getUserOrders", auth, getUserOrderApi);
 
+// client
+router.get("/getClientsBid", clientauth, getClientBidApi);
+router.put("/placeOrder/:id", clientauth, placeOrderApi);
+router.get("/getClientOrders", clientauth, getPlacedOrderApi);
+
+// admin
+router.get("/getOrders", adminauth, getOrdersApi);
 module.exports = router;

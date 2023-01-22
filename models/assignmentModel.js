@@ -5,6 +5,7 @@ const assignmentSchema = new Schema(
   {
     client: {
       type: Schema.Types.ObjectId,
+      ref: "Client",
       required: true,
     },
     assignmentName: {
@@ -37,6 +38,6 @@ const assignmentSchema = new Schema(
   { timestamps: true }
 );
 
-const Assignment = mongoose.model(" Assignment ", assignmentSchema);
+const Assignment = mongoose.model("Assignment", assignmentSchema);
 
 module.exports = Assignment;
