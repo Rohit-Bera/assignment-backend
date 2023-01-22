@@ -19,12 +19,13 @@ const assignmentSchema = new Schema(
       type: String,
       required: true,
     },
+    // pending | done
     assignmentStatus: {
       type: String,
       required: true,
       default: "pending",
     },
-    assignmentPrice: {
+    assignmentBudget: {
       type: Number,
       required: true,
     },
