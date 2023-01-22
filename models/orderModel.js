@@ -3,16 +3,29 @@ const { Schema } = mongoose;
 
 const orderSchema = new Schema(
   {
-    user: {
+    client: {
       type: Schema.Types.ObjectId,
+      ref: "Client",
       required: true,
     },
-    assignment: {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    finalBid: {
       type: Schema.Types.ObjectId,
       required: true,
+      ref: "Usersbid",
     },
     finalPrice: {
       type: Number,
+      required: true,
+    },
+    // work is done or not
+    workStatus: {
+      type: String,
+      default: "pending",
       required: true,
     },
     // received or pending
