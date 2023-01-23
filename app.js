@@ -28,10 +28,16 @@ mongoose
     console.log("----------------------------------------------");
   });
 
+
+
+// start server
+
 // import routes
 const userRoutes = require("./routes/user.routes");
 const assignmentRoutes = require("./routes/assignment.routes");
 const orderRoutes = require("./routes/order.routes");
+const feedbackRoutes = require("./routes/feedback.routes");
+const ratingRoutes = require("./routes/rating.routes");
 
 // to access image
 app.use("/clientAttachments", express.static("upload/clientAttachments"));
@@ -40,8 +46,10 @@ app.use("/clientAttachments", express.static("upload/clientAttachments"));
 app.use(userRoutes);
 app.use(assignmentRoutes);
 app.use(orderRoutes);
+app.use(feedbackRoutes);
+app.use(ratingRoutes);
 
-const port = process.env.PORT;
+const port = process.env.PORT || 4000;
 
 app.get("/", (request, response) => {
   response.json({
@@ -55,3 +63,5 @@ const server = http.createServer(app);
 server.listen(port, () => {
   console.log(`server is running on port : ${port}`);
 });
+
+
