@@ -1,13 +1,13 @@
 const HttpError = require("../middlewares/HttpError");
 const Rating =  require("../models/ratingsModel");
 
-//post rating services
+
+
 const postRatingServices = async(detail)=>
 {
-    
     const {rating,desc,order} = detail;
     try{
-        const rate = new Rating(detail);
+        const rate = new Rating(rating,desc,order);
         await rate.save();
         if(!rate)
         {
@@ -68,3 +68,4 @@ const deleteRatingServices = async(_id)=>{
     }
 };
 module.exports = {postRatingServices,getallratingServices,deleteRatingServices};
+
