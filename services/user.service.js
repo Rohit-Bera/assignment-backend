@@ -99,8 +99,18 @@ const signUpUserService = async (body) => {
   try {
     const isUser = await User.findOne({ email });
 
+    const isClient = await Client.findOne({ email });
+
     if (isUser) {
       const error = new HttpError(404, "User already exist");
+
+      return { error };
+    }
+    if (isClient) {
+      const error = new HttpError(
+        404,
+        "This email ID already exist , enter another email"
+      );
 
       return { error };
     }
@@ -178,8 +188,19 @@ const signUpClientService = async (body) => {
   try {
     const isClient = await Client.findOne({ email });
 
+    const isUser = await User.findOne({ email });
+
     if (isClient) {
       const error = new HttpError(404, "Client already exist");
+
+      return { error };
+    }
+
+    if (isUser) {
+      const error = new HttpError(
+        404,
+        "This email ID already exist , enter another email"
+      );
 
       return { error };
     }
