@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middlewares/auth");
 const clientauth = require("../middlewares/clientauth");
-
 const adminauth = require("../middlewares/adminauth");
 
 const {
@@ -43,3 +42,4 @@ router.get("/getAllUsers", auth, adminauth, getAllUsers);
 router.get("/getAllClients", auth, adminauth, getAllClients);
 
 module.exports = router;
+

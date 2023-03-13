@@ -10,14 +10,14 @@ const postRating = async(request,response,next)=>{
     console.log(order);
     // console.log(client);
 
-
     const rating = request.body.rating;
     console.log(rating);
 
-    const desc = request.body.feedbackDescription;
-    console.log(desc);
+    const feedbackDescription = request.body.feedbackDescription;
+    console.log(feedbackDescription);
 
-    const detail = {rating,desc,order};
+    const detail = {rating,feedbackDescription,order};
+
     const data = await ratingservices.postRatingServices(detail);
     const {rate , error} = data;
     if(error)
@@ -25,6 +25,33 @@ const postRating = async(request,response,next)=>{
         return next(error); 
     }
     response.json({ status: "200", rate});
-}
 
-module.exports = {postRating};
+};
+//get all ratings
+const getRating = async(request,response,next)=>{
+    const data = await ratingservices.getallratingServices();
+    const {allRatings,error} = data;
+    if(error)
+    {
+        return next(error);
+    }
+    response.json({status:"200",allRatings});
+};
+const deleteRating = async(request,response,next)=>{
+    const _id= request.params.id;
+    const order = request.order;
+    const data = ratingservices.deleteRatingServices(_id);
+    const {deleteRating , error} = data;
+    if(error)
+    {
+        return next(error);
+    }
+    response.json({status:"200",deleteRating});
+};
+
+
+module.exports = {postRating,getRating,deleteRating};
+
+
+
+

@@ -20,6 +20,11 @@ const clientSchema = new Schema(
       required: true,
       unique: true,
     },
+    usertype:{
+      type: String,
+      required:true,
+      default:"client",
+    },
     contactNumber: {
       type: Number,
       required: true,
