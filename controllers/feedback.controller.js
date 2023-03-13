@@ -1,6 +1,6 @@
 const {response} = require("express");
 const { request } = require("http");
-const feedbackServices = require("../services/feedback.services");
+const feedbackServices = require("../services/feedback.service");
 
 //postfeedback user controller
 const postuserFeedback = async(request,response,next)=>{
