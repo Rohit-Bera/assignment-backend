@@ -34,11 +34,12 @@ router.post("/signupClient", clientSignup);
 router.put("/editClient/:id", clientauth, editClientDetails);
 router.put("/editPasswordClient/:id", clientauth, editClientPass);
 router.put("/forgotPasswordClient", clientForgotPassword);
+router.get("/getAllUsersClient", clientauth , getAllUsers); 
 
 // routes of admin
 router.delete("/deleteUser/:id", auth, adminauth, deleteUser);
 router.delete("/deleteClient/:id", auth, adminauth, deleteClient);
-router.get("/getAllUsers", auth, adminauth, getAllUsers);
+router.get("/getAllUsers", auth,adminauth , getAllUsers);
 router.get("/getAllClients", auth, adminauth, getAllClients);
 
 module.exports = router;

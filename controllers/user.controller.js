@@ -24,11 +24,11 @@ const logIn = async (request, response, next) => {
 //get all user controller
 const getAllUsers = async (request, response, next) => {
     const user = await userServices.getAllUsersService();
-    const { allusers, error } = user;
+    const { users, error } = user;
     if (error) {
       return next(error);
     }
-    response.json({ status: "200", allusers });
+    response.json({ status: "200", users });
   };
 
 
