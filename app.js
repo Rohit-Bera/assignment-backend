@@ -28,8 +28,6 @@ mongoose
     console.log("----------------------------------------------");
   });
 
-
-
 // start server
 
 // import routes
@@ -41,6 +39,7 @@ const ratingRoutes = require("./routes/rating.routes");
 
 // to access image
 app.use("/clientAttachments", express.static("upload/clientAttachments"));
+app.use("/userImages", express.static("upload/userImages"));
 
 // <---- Routes  ---->
 app.use(userRoutes);
@@ -63,5 +62,3 @@ const server = http.createServer(app);
 server.listen(port, () => {
   console.log(`server is running on port : ${port}`);
 });
-
-
