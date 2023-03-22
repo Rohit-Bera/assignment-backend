@@ -1,6 +1,6 @@
 const Client = require("../models/clientModel");
 const jwt = require("jsonwebtoken");
-const HttpError = require("../middlewares/HttpError");
+const HttpError = require("./HttpError");
 
 const adminauth = async (request, response, next) => {
   try {
