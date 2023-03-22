@@ -45,6 +45,8 @@ const userSignup = async (request, response, next) => {
     profession,
     experience,
     about,
+    area,
+    address,
   } = request.body;
 
   // console.log("request.body: ", request.body);
@@ -64,7 +66,8 @@ const userSignup = async (request, response, next) => {
     profession,
     experience,
     about,
-    profilePic,
+    area,
+    address,
   };
 
   console.log("body: ", body);
