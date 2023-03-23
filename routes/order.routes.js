@@ -13,7 +13,10 @@ const {
   getPlacedOrderApi,
   getUserOrderApi,
   getOrdersApi,
+  getParticularTaskBid,
 } = require("../controllers/order.controller");
+
+router.get("/getParticularTaskBid/:id", getParticularTaskBid);
 
 // user
 router.post("/postBid/:id", auth, postBidApi);
