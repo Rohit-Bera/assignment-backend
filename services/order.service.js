@@ -7,9 +7,10 @@ const HttpError = require("../middlewares/HttpError");
 
 const getTaskBidsService = async ({ _id }) => {
   try {
-    const allTaskBids = await Usersbid.find({ assignment: _id })
-      .populate("user")
-      .sort({ createdAt: 1 });
+    const allTaskBids = await Usersbid.find({ assignment: _id }).sort({
+      createdAt: -1,
+    });
+    // .populate("user");
     console.log("allTaskBids service: ", allTaskBids);
 
     if (!allTaskBids) {
