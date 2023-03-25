@@ -119,7 +119,7 @@ const deleteAssignmentService = async ({ _id }) => {
 
 const getPublicAssignmentService = async () => {
   try {
-    const allAssignments = await Assignment.find();
+    const allAssignments = await Assignment.find().populate("client");
 
     if (!allAssignments) {
       const error = new HttpError(404, "something went wrong in the database");
