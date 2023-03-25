@@ -23,6 +23,21 @@ const postBidApi = async (request, response, next) => {
   response.json({ status: 200, myBid });
 };
 
+const getParticularTaskBid = async (request, response, next) => {
+  const _id = request.params.id;
+
+  const result = await orderService.getTaskBidsService({ _id });
+  const { error, allTaskBids } = result;
+  console.log("allTaskBids: ", allTaskBids);
+
+  if (error) {
+    response.json({ error });
+    return next(error);
+  }
+
+  response.json({ status: 200, allTaskBids });
+};
+
 const getUserBidApi = async (request, response, next) => {
   const _id = request.user._id;
 
@@ -175,4 +190,5 @@ module.exports = {
   getPlacedOrderApi,
   getUserOrderApi,
   getOrdersApi,
+  getParticularTaskBid,
 };

@@ -1,7 +1,8 @@
-
 const HttpError = require("../middlewares/HttpError");
 const User = require("../models/userModel");
 const Client = require("../models/clientModel");
+const UserWorkImage = require("../models/userWorkModel");
+const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
@@ -126,6 +127,109 @@ const signUpUserService = async (body) => {
     const successOnSignUp = { user, token };
 
     return { successOnSignUp };
+  } catch (e) {
+    console.log("e: ", e);
+
+    const error = new HttpError(500, `Internal server error : ${e} `);
+
+    return { error };
+  }
+};
+
+const addWorkerDemoServices = async ({ _id, workImg }) => {
+  console.log("workImg: ", workImg);
+  console.log("_id: ", _id);
+
+  const data = {
+    user: _id,
+    workImage: workImg,
+  };
+
+  try {
+    const newWorkImage = new UserWorkImage(data);
+
+    await newWorkImage.save();
+
+    if (!newWorkImage) {
+      const error = new HttpError(404, "User not found!");
+      return { error };
+    }
+
+    return { newWorkImage };
+  } catch (e) {
+    const error = new HttpError(500, `Inetrnal Server error: ${e} `);
+    return { error };
+  }
+};
+
+// delete
+const deleteWorkerDemoService = async ({ imageId }) => {
+  try {
+    const _id = imageId;
+
+    const deleted = await UserWorkImage.findByIdAndDelete({ _id });
+
+    if (!deleted) {
+      const error = new HttpError(404, "work image not found");
+
+      return { error };
+    }
+
+    const { workImage } = deleted;
+    console.log("workImage: ", workImage);
+
+    const path = workImage.slice(55);
+    console.log("path: ", path);
+
+    const file = `./upload/userImages/${path}`;
+
+    fs.unlinkSync(file);
+
+    return { deleted };
+  } catch (e) {
+    console.log("e: ", e);
+
+    const error = new HttpError(500, `Internal server error : ${e} `);
+
+    return { error };
+  }
+};
+// get user image for client
+const getAllUserworkImageService = async () => {
+  try {
+    const allUserWorkImage = await UserWorkImage.find();
+
+    if (!allUserWorkImage) {
+      const error = new HttpError(404, "User images not found!");
+      return { error };
+    }
+
+    return { allUserWorkImage };
+  } catch (e) {
+    console.log("e: ", e);
+
+    const error = new HttpError(500, `Internal server error : ${e} `);
+
+    return { error };
+  }
+};
+// get user image for user
+const getMyUserworkImageService = async ({ _id }) => {
+  console.log("_id: ", _id);
+  try {
+    const myWorkImages = await UserWorkImage.find({ user: _id });
+
+    if (!myWorkImages) {
+      const error = new HttpError(404, "User images not found!");
+      return { error };
+    }
+
+    if (myWorkImages.length === 0) {
+      const error = new HttpError(404, "no images were uploaded!");
+      return { error };
+    }
+
+    return { myWorkImages };
   } catch (e) {
     console.log("e: ", e);
 
@@ -362,6 +466,10 @@ module.exports = {
   signUpUserService,
   editUserService,
   changeUserPassService,
+  addWorkerDemoServices,
+  deleteWorkerDemoService,
+  getMyUserworkImageService,
+  getAllUserworkImageService,
   // -----------------
   signUpClientService,
   editClientService,
@@ -372,4 +480,3 @@ module.exports = {
   getAllUsersService,
   getAllClientsService,
 };
-

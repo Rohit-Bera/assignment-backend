@@ -17,6 +17,10 @@ const userSchema = new Schema(
       required: true,
       unique: true,
     },
+    profilePic: {
+      type: String,
+      required: true,
+    },
     password: {
       type: String,
       required: true,
@@ -44,9 +48,6 @@ const userSchema = new Schema(
     },
     about: {
       type: String,
-    },
-    workDemo: {
-      type: Array,
     },
     bankAccountNo: {
       type: Number,

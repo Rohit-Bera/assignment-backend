@@ -1,50 +1,17 @@
-
-const {response} = require("express");
+const { response } = require("express");
 const { request } = require("http");
 const userServices = require("../services/user.service");
 require("dotenv").config();
 
-
-//login controller
-const logIn = async (request, response, next) => {
-    const { email, password } = request.body;
-    console.log("password: ", password);
-    console.log("email: ", email);
-  
-    const data = await userServices.logInServices(request.body);
-    const { loguser, error } = data;
-    console.log("loguser: ", loguser);
-    if (error) {
-      return next(error);
-    }
-    loguser
-      ? response.json({ status: "200", loguser })
-      : response.json({ status: "404", error });
-  };
 //get all user controller
 const getAllUsers = async (request, response, next) => {
-    const user = await userServices.getAllUsersService();
-    const { users, error } = user;
-    if (error) {
-      return next(error);
-    }
-    response.json({ status: "200", users });
-  };
-
-
-//signup controller
-const signUp = async (request, response, next) => {
-    const { firstName, email, password, number } = request.body;
-    console.log("request.body: ", request.body);
-    const data = await userServices.signUpServices(request.body);
-    const { signupuser, error } = data;
-    
-    if (error) {
-      return next(error);
-    }
-    response.json({ status: "200", signupuser });
-  };
-
+  const user = await userServices.getAllUsersService();
+  const { allusers, error } = user;
+  if (error) {
+    return next(error);
+  }
+  response.json({ status: "200", allusers });
+};
 
 // login for both the actors -> admin , users , clients
 const login = async (request, response, next) => {
@@ -64,9 +31,48 @@ const login = async (request, response, next) => {
 
 //-------------------------- user
 const userSignup = async (request, response, next) => {
-  const { name, email } = request.body;
+  // const url = request.protocol + "://" + request.get("host");
+  const url = "https://taskify-backend-server.onrender.com";
+  const {
+    firstName,
+    lastName,
+    gender,
+    email,
+    password,
+    phoneNumber,
+    city,
+    pincode,
+    profession,
+    experience,
+    about,
+    area,
+    address,
+  } = request.body;
 
-  const data = await userServices.signUpUserService(request.body);
+  // console.log("request.body: ", request.body);
+  // console.log("request.files: ", request.files);
+
+  const profilePic = url + "/userImages/" + request.files[0].filename;
+
+  const body = {
+    firstName,
+    lastName,
+    gender,
+    email,
+    password,
+    phoneNumber,
+    city,
+    pincode,
+    profession,
+    experience,
+    about,
+    area,
+    address,
+  };
+
+  console.log("body: ", body);
+
+  const data = await userServices.signUpUserService(body);
 
   const { successOnSignUp, error } = data;
 
@@ -76,6 +82,84 @@ const userSignup = async (request, response, next) => {
   }
 
   response.json({ status: 200, successOnSignUp });
+};
+
+const addWorkdemo = async (request, response, next) => {
+  const user = request.user;
+
+  const _id = user._id;
+
+  // const url = request.protocol + "://" + request.get("host");
+
+  const url = "https://taskify-backend-server.onrender.com";
+
+  console.log("request.files: ", request.files);
+
+  const workImg = url + "/userImages/" + request.files[0].filename;
+
+  const postDemo = await userServices.addWorkerDemoServices({ _id, workImg });
+
+  const { error, newWorkImage } = postDemo;
+
+  if (error) {
+    response.json({ error });
+
+    return next(error);
+  }
+
+  response.json({ status: 200, newWorkImage });
+};
+
+// all user images for client
+const getAllUserworkImages = async (request, response, next) => {
+  const result = await userServices.getAllUserworkImageService();
+
+  const { error, allUserWorkImage } = result;
+
+  if (error) {
+    response.json({ error });
+
+    return next(error);
+  }
+
+  response.json({ status: 200, allUserWorkImage });
+};
+
+//all images of client
+const getMyUserworkImages = async (request, response, next) => {
+  const user = request.user;
+  // console.log("user: ", user);
+
+  const _id = user._id;
+
+  const result = await userServices.getMyUserworkImageService({ _id });
+
+  const { myWorkImages, error } = result;
+
+  if (error) {
+    response.json({ error });
+
+    return next(error);
+  }
+
+  response.json({ status: 200, myWorkImages });
+};
+
+// user will delete particluar work image
+const deleteWorkdemo = async (request, response, next) => {
+  const imageId = request.params.id;
+
+  const result = await userServices.deleteWorkerDemoService({ imageId });
+
+  const { error, deleted } = result;
+
+  if (error) {
+    response.json({ error });
+
+    return next(error);
+  }
+
+  response.json({ status: 200, message: "Work image was deleted" });
 };
 
 const editUserDetails = async (request, response, next) => {
@@ -208,7 +292,6 @@ const deleteClient = async (request, response, next) => {
   });
 };
 
-
 const getAllClients = async (request, response, next) => {
   const allClients = await userServices.getAllClientsService();
 
@@ -239,4 +322,8 @@ module.exports = {
   deleteClient,
   getAllClients,
   getAllUsers,
+  addWorkdemo,
+  deleteWorkdemo,
+  getMyUserworkImages,
+  getAllUserworkImages,
 };

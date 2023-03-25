@@ -3,6 +3,31 @@ const Assignment = require("../models/assignmentModel");
 const Order = require("../models/orderModel");
 const HttpError = require("../middlewares/HttpError");
 
+// visitor's service
+
+const getTaskBidsService = async ({ _id }) => {
+  try {
+    const allTaskBids = await Usersbid.find({ assignment: _id })
+      .sort({
+        createdAt: -1,
+      })
+      .populate("user");
+    console.log("allTaskBids service: ", allTaskBids);
+
+    if (!allTaskBids) {
+      const error = new HttpError(404, "bids were not found!");
+
+      return { error };
+    }
+
+    return { allTaskBids };
+  } catch (e) {
+    const error = new HttpError(500, `Internal server error : ${e}`);
+
+    return { error };
+  }
+};
+
 // user's services
 const postBidService = async ({ user, assignment, body }) => {
   try {
@@ -208,4 +233,5 @@ module.exports = {
   getPlacedOrderService,
   getUserOrderService,
   getOrderServcie,
+  getTaskBidsService,
 };
