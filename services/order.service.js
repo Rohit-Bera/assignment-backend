@@ -1,6 +1,7 @@
 const Usersbid = require("../models/bidModel");
 const Assignment = require("../models/assignmentModel");
 const Order = require("../models/orderModel");
+const Client = require("../models/clientModel");
 const HttpError = require("../middlewares/HttpError");
 
 // visitor's service
@@ -68,6 +69,8 @@ const getBidService = async ({ _id }) => {
 
       return { error };
     }
+
+    // const {  } = findMyBid;
 
     return { findMyBid };
   } catch (e) {

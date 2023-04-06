@@ -161,7 +161,6 @@ const searchAssignmentbyName = async (request, response, next) => {
   const name = request.params.name;
 
   const result = await assignmentService.searchAssignmentService({ name });
-
   const { found, error } = result;
 
   if (error) {
@@ -172,6 +171,21 @@ const searchAssignmentbyName = async (request, response, next) => {
   response.json({ status: 200, found });
 };
 
+const getAssignmentByID = async (request, response, next) => {
+  const assignmentId = request.params.id;
+
+  const result = await assignmentService.getAssignmentByIDService(assignmentId);
+
+  const { error, assignmentFound } = result;
+
+  if (error) {
+    response.json({ error });
+    return next(error);
+  }
+
+  response.json({ status: 200, assignmentFound });
+};
+
 module.exports = {
   postAssignmentApi,
   getMyAssignmentApi,
@@ -179,4 +193,5 @@ module.exports = {
   deleteAssignmentApi,
   searchAssignmentbyName,
   getAssignmentListApi,
+  getAssignmentByID,
 };
