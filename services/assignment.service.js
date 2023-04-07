@@ -139,7 +139,7 @@ const searchAssignmentService = async ({ name }) => {
   try {
     const assignmentName = new RegExp(name, "i");
 
-    const found = await Assignment.find({ assignmentName });
+    const found = await Assignment.find({ assignmentName }).populate("client");
 
     if (!found) {
       const error = new HttpError(404, "something went wrong in the database!");
@@ -161,6 +161,26 @@ const searchAssignmentService = async ({ name }) => {
   }
 };
 
+const getAssignmentByIDService = async (_id) => {
+  try {
+    const assignmentFound = await Assignment.findById({
+      _id,
+    }).populate("client");
+
+    if (!assignmentFound) {
+      const error = new HttpError(404, "something went wrong in the database!");
+
+      return { error };
+    }
+
+    return { assignmentFound };
+  } catch (e) {
+    const error = new HttpError(500, `Internal server error : ${e}`);
+
+    return { error };
+  }
+};
+
 module.exports = {
   postAssignmentService,
   getAssignmentService,
@@ -168,4 +188,5 @@ module.exports = {
   deleteAssignmentService,
   getPublicAssignmentService,
   searchAssignmentService,
+  getAssignmentByIDService,
 };

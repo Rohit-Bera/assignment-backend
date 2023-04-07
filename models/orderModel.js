@@ -13,14 +13,14 @@ const orderSchema = new Schema(
       ref: "User",
       required: true,
     },
+    assignment: {
+      type: Schema.Types.ObjectId,
+      ref: "Assignment",
+    },
     finalBid: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "Usersbid",
-    },
-    finalPrice: {
-      type: Number,
-      required: true,
     },
     // work is done or not
     workStatus: {

@@ -61,7 +61,7 @@ const getUserBidApi = async (request, response, next) => {
 };
 
 const getUserOrderApi = async (request, response, next) => {
-  const user = request.user;
+  const user = request.user._id;
 
   const result = await orderService.getUserOrderService({ user });
 

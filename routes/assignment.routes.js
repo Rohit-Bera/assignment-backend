@@ -28,6 +28,7 @@ const {
   deleteAssignmentApi,
   getAssignmentListApi,
   searchAssignmentbyName,
+  getAssignmentByID,
 } = require("../controllers/assignment.controller");
 
 // client
@@ -48,6 +49,8 @@ router.delete("/deleteMyTask/:id", clientauth, deleteAssignmentApi);
 
 // user
 router.get("/userAssignments", auth, getAssignmentListApi);
+
+router.get("/getAssignmentById/:id", auth, getAssignmentByID);
 
 // admin
 router.get("/adminAssignments", auth, adminauth, getAssignmentListApi);

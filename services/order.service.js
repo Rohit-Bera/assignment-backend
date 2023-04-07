@@ -1,6 +1,7 @@
 const Usersbid = require("../models/bidModel");
 const Assignment = require("../models/assignmentModel");
 const Order = require("../models/orderModel");
+const Client = require("../models/clientModel");
 const HttpError = require("../middlewares/HttpError");
 
 // visitor's service
@@ -69,6 +70,8 @@ const getBidService = async ({ _id }) => {
       return { error };
     }
 
+    // const {  } = findMyBid;
+
     return { findMyBid };
   } catch (e) {
     const error = new HttpError(500, `Internal server error : ${e}`);
@@ -97,7 +100,10 @@ const deleteBidService = async ({ _id }) => {
 
 const getUserOrderService = async ({ user }) => {
   try {
-    const userOrders = await Order.find({ user });
+    const userOrders = await Order.find({ user })
+      .populate("client")
+      .populate("assignment")
+      .populate("finalBid");
 
     if (!userOrders) {
       const error = new HttpError(404, "user orders were not found");
@@ -157,13 +163,14 @@ const placeOrderService = async ({ id, client }) => {
       return { error };
     }
 
-    const { user, _id, finalPrice } = accepted;
+    const { user, _id, finalPrice, assignment } = accepted;
     const finalBid = _id;
     const item = {
       client,
       user,
       finalBid,
       finalPrice,
+      assignment,
     };
 
     const orderPlaced = new Order(item);
@@ -186,7 +193,10 @@ const placeOrderService = async ({ id, client }) => {
 
 const getPlacedOrderService = async ({ client }) => {
   try {
-    const myPlacedOrders = await Order.find({ client });
+    const myPlacedOrders = await Order.find({ client })
+      .populate("user")
+      .populate("assignment")
+      .populate("finalBid");
 
     if (!myPlacedOrders) {
       const error = new HttpError(
