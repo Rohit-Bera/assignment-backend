@@ -208,7 +208,7 @@ const getPlacedOrderService = async ({ client }) => {
 // admin
 const getOrderServcie = async () => {
   try {
-    const allOrders = await Order.find();
+    const allOrders = await Order.find().populate("client").populate("user");
 
     if (!allOrders) {
       const error = new HttpError(404, "Orders not found!");
