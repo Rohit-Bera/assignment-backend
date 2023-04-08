@@ -92,6 +92,25 @@ const deleteBidApi = async (request, response, next) => {
   response.json({ status: 200, deletedBid });
 };
 
+const onWorkDoneApi = async (request, response, next) => {
+  const _id = request.params.id;
+
+  const result = await orderService.workDoneService({ _id });
+
+  const { updateWorkDone, error } = result;
+
+  if (error) {
+    response.json({ error });
+    return next(error);
+  }
+
+  response.json({
+    status: 200,
+    message:
+      "Order was Completed , please chat with the client to checkout payment",
+  });
+};
+
 // client
 const getClientBidApi = async (request, response, next) => {
   const clientId = request.client._id;
@@ -185,6 +204,7 @@ module.exports = {
   postBidApi,
   getUserBidApi,
   deleteBidApi,
+  onWorkDoneApi,
   getClientBidApi,
   placeOrderApi,
   getPlacedOrderApi,

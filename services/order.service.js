@@ -118,6 +118,61 @@ const getUserOrderService = async ({ user }) => {
   }
 };
 
+const workDoneService = async ({ _id }) => {
+  try {
+    const theOrder = await Order.findById({ _id })
+      .populate("client")
+      .populate("assignment")
+      .populate("finalBid");
+
+    console.log("theOrder: ", theOrder);
+
+    if (!theOrder) {
+      const error = new HttpError(404, "Order was not found");
+
+      return { error };
+    }
+
+    const { assignment } = theOrder;
+
+    const assignId = assignment._id;
+
+    const assignDone = { assignmentStatus: "done" };
+
+    const updateAssign = await Assignment.findByIdAndUpdate(
+      { _id: assignId },
+      { $set: assignDone },
+      { new: true }
+    );
+
+    if (!updateAssign) {
+      const error = new HttpError(404, "Task was not found");
+
+      return { error };
+    }
+
+    const workDone = { workStatus: "done" };
+
+    const updateWorkDone = await Order.findByIdAndUpdate(
+      { _id },
+      { $set: workDone },
+      { new: true }
+    );
+
+    if (!updateWorkDone) {
+      const error = new HttpError(404, "Order was not updated");
+
+      return { error };
+    }
+
+    return { updateWorkDone };
+  } catch (e) {
+    const error = new HttpError(500, `Internal server error : ${e}`);
+
+    return { error };
+  }
+};
+
 // client's service
 
 const getClientBidService = async ({ clientId }) => {
@@ -238,6 +293,7 @@ module.exports = {
   postBidService,
   getBidService,
   deleteBidService,
+  workDoneService,
   getClientBidService,
   placeOrderService,
   getPlacedOrderService,
