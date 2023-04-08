@@ -24,7 +24,7 @@ router.post("/postBid/:id", auth, postBidApi);
 router.get("/getMyBid", auth, getUserBidApi);
 router.delete("/deleteMyBid/:id", auth, deleteBidApi);
 router.get("/getUserOrders", auth, getUserOrderApi);
-router.put("/onCompleteTask/:id", auth, onWorkDoneApi);
+router.put("/onCompleteTask/:id", onWorkDoneApi);
 
 // client
 router.get("/getClientsBid", clientauth, getClientBidApi);
