@@ -4,25 +4,21 @@ const feedbackServices = require("../services/feedback.service");
 
 //postfeedback user controller
 const postuserFeedback = async(request,response,next)=>{
-    const user = request.user;
-    const _id = user._id;
-    const Username = user.firstName;
-    const email = user.email;
-    console.log(Username);
-    console.log(_id);
-
-    const feedback = request.body;
-    const detail = {feedback,_id,Username,email};
-    const data = await feedbackServices.postUserFeedbackServices(detail);
+    const userInfo = request.user;
+    const user = userInfo._id;
+    const feedback = request.body.feedback;
+    // console.log("feedback:", feedback)
+    const detail = {feedback,user}
+    const data = await feedbackServices.postUserFeedbackServices({detail});
     const { feed,error} = data;
     console.log("postfeedback",feed);
     if(error)
     {
-        // response.json(error);
+        response.json(error);
         return next(error); 
         // console.log("error",error);
     }
-  response.json({ status: "200", feed});
+    response.json({ status: "200", feed});
     
 };
 
@@ -55,16 +51,13 @@ const deleteuserFeedback = async(request,response,next)=>{
 
 //Client postfeedback controller
 const postClientFeedback = async(request,response,next)=>{
-    const client = request.client;
-    const _id = client._id;
-    const Clientname = client.firstName;
-    const email = client.email;
-    console.log(Clientname);
-    console.log(_id);
-
-    const feedback = request.body;
-    const detail = {feedback,_id,Clientname,email};
-    const data = await feedbackServices.postClientFeedbackServices(detail);
+    const clientInfo = request.client;
+    console.log("🚀 ~ file: feedback.controller.js:55 ~ postClientFeedback ~ clientInfo:", clientInfo)
+    const client = clientInfo._id;
+    const feedback = request.body.feedback;
+    console.log("feedback:", feedback)
+    const detail = {feedback,client};
+    const data = await feedbackServices.postClientFeedbackServices({detail});
     const { feed,error} = data;
     console.log("postfeedback",feed);
     if(error)
@@ -79,6 +72,7 @@ const postClientFeedback = async(request,response,next)=>{
 
 //get all Client feedback
 const getallClientFeedback = async(request,response,next)=>{
+
     const data = await feedbackServices.getAllClientFeedbackServices();
     const {allFeedback, error} = data;
     if(error)
@@ -102,9 +96,11 @@ const deleteClientFeedback = async(request,response,next)=>{
   response.json({ status: "200", deleteFeedback});
 };
 
-module.exports = {postuserFeedback,
+module.exports = {
+    postuserFeedback,
     getalluserFeedback,
     deleteuserFeedback,
     postClientFeedback,
     getallClientFeedback,
-    deleteClientFeedback};
+    deleteClientFeedback
+};

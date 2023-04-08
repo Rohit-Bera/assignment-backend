@@ -2,12 +2,11 @@ const HttpError = require("../middlewares/HttpError");
 const Feedback = require("../models/feedbackModel");
 
 //feedback user post service
-const postUserFeedbackServices = async(detail)=>
+const postUserFeedbackServices = async({detail})=>
 {
-    const {feedback,_id,Username,email} = detail;
     try{
-        // console.log("feedback",feedback);
-        const feed = new Feedback(feedback);
+        
+        const feed = new Feedback(detail);
         await feed.save();
         console.log("feed in s",feed);
 
@@ -74,12 +73,12 @@ const deleteuserFeedbackService = async(_id)=>{
 };
 
 //feedback Client post service
-const postClientFeedbackServices = async(detail)=>
+const postClientFeedbackServices = async({detail})=>
 {
-    const {feedback,_id,Clientname,email} = detail;
+    console.log("detail",detail);
     try{
         // console.log("feedback",feedback);
-        const feed = new Feedback(feedback);
+        const feed = new Feedback(detail)
         await feed.save();
         console.log("feed in s",feed);
 
@@ -104,7 +103,7 @@ const postClientFeedbackServices = async(detail)=>
 //get all feedback Client services
 const getAllClientFeedbackServices = async()=>{
     try{
-        const allFeedback = await Feedback.find().populate("user");
+        const allFeedback = await Feedback.find().populate("client");
         if(allFeedback)
         {
             return {allFeedback};
@@ -151,4 +150,5 @@ module.exports={postUserFeedbackServices,
     deleteuserFeedbackService,
     postClientFeedbackServices,
     getAllClientFeedbackServices,
-    deleteClientFeedbackService};
+    deleteClientFeedbackService
+};

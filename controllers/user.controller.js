@@ -5,8 +5,8 @@ require("dotenv").config();
 
 //get all user controller
 const getAllUsers = async (request, response, next) => {
-  const user = await userServices.getAllUsersService();
-  const { allusers, error } = user;
+  const allusers = await userServices.getAllUsersService();
+  const { users, error } = allusers;
   if (error) {
     return next(error);
   }

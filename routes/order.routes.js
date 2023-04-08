@@ -33,4 +33,5 @@ router.get("/getClientOrders", clientauth, getPlacedOrderApi);
 
 // admin
 router.get("/getOrders", adminauth, getOrdersApi);
+
 module.exports = router;
