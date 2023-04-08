@@ -62,7 +62,7 @@ const postBidService = async ({ user, assignment, body }) => {
 
 const getBidService = async ({ _id }) => {
   try {
-    const findMyBid = await Usersbid.find({ user: _id });
+    const findMyBid = await Usersbid.find({ user: _id }).populate("assignment");
 
     if (!findMyBid) {
       const error = new HttpError(404, `bids not find , please check again!`);
