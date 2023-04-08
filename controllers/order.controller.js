@@ -95,7 +95,10 @@ const deleteBidApi = async (request, response, next) => {
 const onWorkDoneApi = async (request, response, next) => {
   const _id = request.params.id;
 
-  const result = await orderService.workDoneService({ _id });
+  const body = request.body;
+  console.log("body: ", body);
+
+  const result = await orderService.workDoneService({ _id, body });
 
   const { updateWorkDone, error } = result;
 

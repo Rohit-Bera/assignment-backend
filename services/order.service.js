@@ -118,7 +118,7 @@ const getUserOrderService = async ({ user }) => {
   }
 };
 
-const workDoneService = async ({ _id }) => {
+const workDoneService = async ({ _id, body }) => {
   try {
     const theOrder = await Order.findById({ _id })
       .populate("client")
@@ -151,11 +151,9 @@ const workDoneService = async ({ _id }) => {
       return { error };
     }
 
-    const workDone = { workStatus: "done" };
-
     const updateWorkDone = await Order.findByIdAndUpdate(
       { _id },
-      { $set: workDone },
+      { $set: body },
       { new: true }
     );
 
