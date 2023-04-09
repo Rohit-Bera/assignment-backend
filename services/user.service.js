@@ -459,7 +459,28 @@ const getAllClientsService = async () => {
     return { error };
   }
 };
+const searchUserService = async({name})=>{
+  try {
+    const firstName =  new RegExp(name,"i");
+    const found = await User.find({firstName})
+    if(!found){
+      const error = new HttpError(404, "something went wrong in the database!");
 
+      return { error };
+    }
+    if(found.length ==0)
+    {
+      const error = new HttpError(404, `there are no ${name} Assignment!`);
+
+      return { error };
+    }
+    return {found};
+  } catch (e) {
+    const error = new HttpError(500, `Internal server error : ${e}`);
+
+    return { error };
+  }
+}
 module.exports = {
   loginServices,
   // -----------------
@@ -479,4 +500,5 @@ module.exports = {
   deleteClientService,
   getAllUsersService,
   getAllClientsService,
+  searchUserService,
 };

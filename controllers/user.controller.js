@@ -308,6 +308,19 @@ const getAllClients = async (request, response, next) => {
   });
 };
 
+const searchUser = async(request,response,next)=>{
+  const name=request.params.name;
+
+  const result = await userServices.searchUserService({name});
+  const {found,error}=result;
+
+  if(error){
+    response.json({ error });
+    return next(error);
+  }
+
+  response.json({ status: 200, found });
+}
 module.exports = {
   login,
   userSignup,
@@ -326,4 +339,5 @@ module.exports = {
   deleteWorkdemo,
   getMyUserworkImages,
   getAllUserworkImages,
+  searchUser,
 };
