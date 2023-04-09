@@ -422,15 +422,15 @@ const deleteClientService = async ({ _id }) => {
 
 const getAllUsersService = async () => {
   try {
-    const users = await User.find();
+    const allusers = await User.find();
 
-    if (!users) {
+    if (!allusers) {
       const error = new HttpError(404, "users not found");
 
       return { error };
     }
 
-    return { users };
+    return { allusers };
   } catch (e) {
     console.log("e: ", e);
 
