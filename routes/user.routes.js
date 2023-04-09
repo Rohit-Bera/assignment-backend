@@ -11,7 +11,7 @@ const path = require("path");
 const profilePicStorage = multer.diskStorage({
   destination: "./upload/userImages",
   filename: (req, file, cb) => {
-    return (
+    return cb(
       null,
       `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
     );

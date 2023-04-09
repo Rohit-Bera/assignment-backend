@@ -5,8 +5,8 @@ require("dotenv").config();
 
 //get all user controller
 const getAllUsers = async (request, response, next) => {
-  const allusers = await userServices.getAllUsersService();
-  const { users, error } = allusers;
+  const user = await userServices.getAllUsersService();
+  const { allusers, error } = user;
   if (error) {
     return next(error);
   }
@@ -68,6 +68,7 @@ const userSignup = async (request, response, next) => {
     about,
     area,
     address,
+    profilePic,
   };
 
   console.log("body: ", body);
