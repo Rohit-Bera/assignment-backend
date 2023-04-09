@@ -19,7 +19,7 @@ const auth = async (request, response, next) => {
     // console.log('request.user: ', request.user);
     next();
   } catch (err) {
-    const error = new HttpError(500, "something went Wrong in authentication");
+    const error = new HttpError(500, `User Authentication: ${err}`);
     response.json(error);
     console.log("error in auth: ", err);
     return error;
