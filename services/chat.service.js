@@ -75,7 +75,9 @@ const userChatRoomIdService = async (_id) => {
 
 const getAllCLientChatsService = async ({ userId }) => {
   try {
-    const allChats = await Chat.find({ userId });
+    const allChats = await Chat.find({ userId })
+      .populate("clientId")
+      .populate("userId");
 
     if (!allChats) {
       const error = new HttpError(500, `No chat started yet!`);
@@ -166,7 +168,9 @@ const clientChatRoomId = async (_id) => {
 
 const getAllUserChatsService = async ({ clientId }) => {
   try {
-    const allChats = await Chat.find({ clientId });
+    const allChats = await Chat.find({ clientId })
+      .populate("clientId")
+      .populate("userId");
 
     if (!allChats) {
       const error = new HttpError(500, `No chat started yet!`);
