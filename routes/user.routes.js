@@ -55,6 +55,7 @@ const {
   deleteWorkdemo,
   getMyUserworkImages,
   getAllUserworkImages,
+  searchUser,
 } = require("../controllers/user.controller");
 
 // common routes
@@ -82,6 +83,7 @@ router.put("/editClient/:id", clientauth, editClientDetails);
 router.put("/editPasswordClient/:id", clientauth, editClientPass);
 router.put("/forgotPasswordClient", clientForgotPassword);
 router.get("/getAllUsersClient", clientauth, getAllUsers);
+router.get("/searchUser/:name", searchUser);
 
 // ------------------------
 // work images
