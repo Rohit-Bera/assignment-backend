@@ -88,7 +88,7 @@ const updateAssignmentService = async ({ _id, body }) => {
     if (!updated) {
       const error = new HttpError(404, "please enter a valid id");
 
-      return error;
+      return { error };
     }
 
     return { updated };

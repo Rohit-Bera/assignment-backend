@@ -81,11 +81,11 @@ router.post("/signupClient", clientSignup);
 router.put("/editClient/:id", clientauth, editClientDetails);
 router.put("/editPasswordClient/:id", clientauth, editClientPass);
 router.put("/forgotPasswordClient", clientForgotPassword);
+router.get("/getAllUsersClient", clientauth, getAllUsers);
 
 // ------------------------
 // work images
 router.get("/getAllWorkImages", clientauth, getAllUserworkImages);
-router.get("/getAllUsersClient", clientauth, getAllUsers);
 
 // routes of admin
 router.delete("/deleteUser/:id", auth, adminauth, deleteUser);
