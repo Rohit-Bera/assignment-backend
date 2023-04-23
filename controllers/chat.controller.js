@@ -45,12 +45,12 @@ const sendAttachmentsFromUser = async (request, response, next) => {
   const url = request.protocol + "://" + request.get("host");
 
   const file = url + "/chatAttachments/" + request.files[0].filename;
-  const user = { attachment: file };
+  const userAttachment = file;
 
-  const result = await chatService.userPostMessageService({
+  const result = await chatService.sendUserAttachmentService({
     userId,
     clientId,
-    user,
+    userAttachment,
   });
 
   const { newMessage, error } = result;
@@ -123,12 +123,12 @@ const sendAttachmentsFromClient = async (request, response, next) => {
   const url = request.protocol + "://" + request.get("host");
 
   const file = url + "/chatAttachments/" + request.files[0].filename;
-  const client = { attachment: file };
+  const clientAttachment = file;
 
-  const result = await chatService.clientPostMessageService({
+  const result = await chatService.sendClientAttachmentService({
     userId,
     clientId,
-    client,
+    clientAttachment,
   });
 
   const { newMessage, error } = result;

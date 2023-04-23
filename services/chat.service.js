@@ -93,6 +93,63 @@ const getAllCLientChatsService = async ({ userId }) => {
   }
 };
 
+const sendUserAttachmentService = async ({
+  userId,
+  clientId,
+  userAttachment,
+}) => {
+  console.log("user: ", userAttachment);
+  try {
+    const findChats = await Chat.findOne({ userId, clientId });
+    console.log("findChats out: ", findChats);
+
+    if (!findChats) {
+      const newChat = {
+        userId,
+        clientId,
+        chats: [{ userAttachment }],
+      };
+
+      const newMessage = new Chat(newChat);
+
+      await newMessage.save();
+
+      return { newMessage };
+    }
+
+    const { chats, _id } = findChats;
+    console.log("chats: ", chats);
+
+    const ogChat = chats;
+
+    ogChat.push({ userAttachment });
+
+    const body = {
+      chats: ogChat,
+    };
+
+    // chats.push
+
+    const newMessage = await Chat.findByIdAndUpdate(
+      { _id },
+      { $set: body },
+      { new: true }
+    );
+
+    if (!newMessage) {
+      const error = new HttpError(404, "server error");
+
+      return { error };
+    }
+
+    return { newMessage };
+  } catch (e) {
+    const error = new HttpError(500, `Intermal server error : ${e}`);
+
+    return { error };
+  }
+};
+
 // client
 const clientPostMessageService = async ({ userId, clientId, client }) => {
   console.log("client: ", client);
@@ -186,13 +243,71 @@ const getAllUserChatsService = async ({ clientId }) => {
   }
 };
 
+const sendClientAttachmentService = async ({
+  userId,
+  clientId,
+  clientAttachment,
+}) => {
+  console.log("client: ", clientAttachment);
+
+  try {
+    const findChats = await Chat.findOne({ userId, clientId });
+    console.log("findChats out: ", findChats);
+
+    if (!findChats) {
+      const newChat = {
+        userId,
+        clientId,
+        chats: [{ clientAttachment }],
+      };
+
+      const newMessage = new Chat(newChat);
+
+      await newMessage.save();
+
+      return { newMessage };
+    }
+
+    const { chats, _id } = findChats;
+    console.log("chats: ", chats);
+
+    const ogChat = chats;
+
+    ogChat.push({ clientAttachment });
+
+    const body = {
+      chats: ogChat,
+    };
+
+    // chats.push
+
+    const newMessage = await Chat.findByIdAndUpdate(
+      { _id },
+      { $set: body },
+      { new: true }
+    );
+
+    if (!newMessage) {
+      const error = new HttpError(404, "server error");
+
+      return { error };
+    }
+
+    return { newMessage };
+  } catch (e) {
+    const error = new HttpError(500, `Intermal server error : ${e}`);
+
+    return { error };
+  }
+};
+
 module.exports = {
   userPostMessageService,
   userChatRoomIdService,
-
+  sendUserAttachmentService,
   getAllCLientChatsService,
   clientPostMessageService,
   clientChatRoomId,
-
+  sendClientAttachmentService,
   getAllUserChatsService,
 };
