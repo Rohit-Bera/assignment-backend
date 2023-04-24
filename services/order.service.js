@@ -3,6 +3,7 @@ const Assignment = require("../models/assignmentModel");
 const Order = require("../models/orderModel");
 const Client = require("../models/clientModel");
 const HttpError = require("../middlewares/HttpError");
+const Chat = require("../models/chatModel");
 
 // visitor's service
 
@@ -237,6 +238,15 @@ const placeOrderService = async ({ id, client }) => {
 
       return { error };
     }
+
+    const orderChat = {
+      clientId: client,
+      userId: user,
+      chats: [],
+    };
+
+    const newChat = new Chat(orderChat);
+    await newChat.save();
 
     return { accepted, orderPlaced };
   } catch (e) {
