@@ -202,7 +202,7 @@ const placeOrderService = async ({ id, client, bidStatus }) => {
   console.log("id servcie: ", id);
 
   try {
-    const bid = { bidStatus };
+    const bid = { bidStatus: bidStatus };
 
     if (bidStatus === "rejected") {
       const rejected = await Usersbid.findByIdAndUpdate(
