@@ -198,11 +198,21 @@ const getClientBidService = async ({ clientId }) => {
   }
 };
 
-const placeOrderService = async ({ id, client }) => {
+const placeOrderService = async ({ id, client, bidStatus }) => {
   console.log("id servcie: ", id);
 
   try {
-    const bid = { bidStatus: "accepted" };
+    const bid = { bidStatus };
+
+    if (bidStatus === "rejected") {
+      const rejected = await Usersbid.findByIdAndUpdate(
+        { _id: id },
+        { $set: bid },
+        { new: true }
+      );
+
+      return { rejected };
+    }
 
     const accepted = await Usersbid.findByIdAndUpdate(
       { _id: id },

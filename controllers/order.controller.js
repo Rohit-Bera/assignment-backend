@@ -141,16 +141,26 @@ const placeOrderApi = async (request, response, next) => {
   const client = request.client._id;
   console.log("client: ", client);
 
+  const { bidStatus } = request.body;
+
   const id = request.params.id;
   console.log("id: ", id);
 
-  const result = await orderService.placeOrderService({ id, client });
+  const result = await orderService.placeOrderService({
+    id,
+    client,
+    bidStatus,
+  });
 
-  const { accepted, orderPlaced, error } = result;
+  const { accepted, orderPlaced, error, rejected } = result;
 
   if (error) {
     response.json({ error });
     return next(error);
+  }
+
+  if (rejected) {
+    return response.json({ status: 200, rejected });
   }
 
   response.json({
