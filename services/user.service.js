@@ -181,9 +181,9 @@ const deleteWorkerDemoService = async ({ imageId }) => {
     const path = workImage.slice(55);
     console.log("path: ", path);
 
-    const file = `./upload/userImages/${path}`;
+    // const file = `./upload/userImages/${path}`;
 
-    fs.unlinkSync(file);
+    // fs.unlinkSync(file);
 
     return { deleted };
   } catch (e) {

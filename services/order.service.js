@@ -249,14 +249,23 @@ const placeOrderService = async ({ id, client, bidStatus }) => {
       return { error };
     }
 
+    const clientId = client;
+    const userId = user;
+
     const orderChat = {
-      clientId: client,
-      userId: user,
+      clientId,
+      userId,
       chats: [],
     };
 
-    const newChat = new Chat(orderChat);
-    await newChat.save();
+    const findChat = await Chat.findOne({ clientId, userId });
+
+    if (findChat) {
+      console.log("old chat was found so new chat will not be created!");
+    } else {
+      const newChat = new Chat(orderChat);
+      await newChat.save();
+    }
 
     return { accepted, orderPlaced };
   } catch (e) {
