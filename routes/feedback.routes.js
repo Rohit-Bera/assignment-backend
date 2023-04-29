@@ -26,16 +26,6 @@ router.post("/postClientFeedback", clientauth, postClientFeedback);
 router.get("/getClientFeedback", adminauth, getallClientFeedback);
 router.delete("/deleteClientFeedback/:id", adminauth, deleteClientFeedback);
 
-//user routes
-router.post("/postUserFeedback", auth, postuserFeedback);
-router.get("/getUserFeedback", adminauth, getalluserFeedback);
-router.delete("/deleteUserFeedback/:id", adminauth, deleteuserFeedback);
-
-//client routes
-router.post("/postClientFeedback", clientauth, postClientFeedback);
-router.get("/getClientFeedback", adminauth, getallClientFeedback);
-router.delete("/deleteClientFeedback/:id", adminauth, deleteClientFeedback);
-
 // complaints
 
 //user routes
