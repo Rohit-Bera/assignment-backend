@@ -33,7 +33,7 @@ router.post("/postUserComplaints", auth, postComplaintApi);
 router.get("/getUserComplaints", auth, getComplaintAPi);
 router.delete("/deleteUserComplaints/:id", auth, deleteComplaintApi);
 // admin
-router.get("/getUserComplaints", adminauth, getComplaintAPi);
+router.get("/getUserComplaintsAdmin", adminauth, getComplaintAPi);
 router.put("/userComplaintAdminReply/:id", adminauth, putComplaintApi);
 
 //client routes
@@ -41,7 +41,7 @@ router.post("/postClientComplaints", clientauth, postComplaintApi);
 router.get("/getClientComplaints", clientauth, getComplaintAPi);
 router.delete("/deleteClientComplaints/:id", clientauth, deleteComplaintApi);
 //admin
-router.get("/getClientComplaints", clientauth, getComplaintAPi);
+router.get("/getClientComplaintsAdmin", clientauth, getComplaintAPi);
 router.put("/clientComplaintAdminReply/:id", adminauth, putComplaintApi);
 
 module.exports = router;
