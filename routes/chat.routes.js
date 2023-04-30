@@ -49,7 +49,7 @@ router.get("/getAllClientChats", auth, getAllClientChats);
 // client
 router.put("/postMessageClient", clientauth, clientPostMessage);
 router.get("/getClientchatRoomId/:id", clientauth, clientChatRoomId);
-router.put(
+router.post(
   "/sendClientAttachments",
   clientauth,
   upload.array("attachment", 1),
