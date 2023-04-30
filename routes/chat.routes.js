@@ -38,7 +38,7 @@ const {
 // user
 router.put("/postMessageUser", auth, userPostMessage);
 router.get("/getUserchatRoomId/:id", auth, userChatRoomId);
-router.put(
+router.post(
   "/sendUserAttachments",
   auth,
   upload.array("attachment", 1),
