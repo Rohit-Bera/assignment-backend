@@ -31,7 +31,7 @@ const {
   clientPostMessage,
   clientChatRoomId,
   sendAttachmentsFromClient,
-
+  createClientChatroom,
   getAllUserChats,
 } = require("../controllers/chat.controller");
 
@@ -47,6 +47,7 @@ router.post(
 router.get("/getAllClientChats", auth, getAllClientChats);
 
 // client
+router.post("/createClientChatroom/:id", clientauth, createClientChatroom);
 router.put("/postMessageClient", clientauth, clientPostMessage);
 router.get("/getClientchatRoomId/:id", clientauth, clientChatRoomId);
 router.post(

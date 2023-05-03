@@ -151,6 +151,36 @@ const sendUserAttachmentService = async ({
 };
 
 // client
+
+const createClientChatroomService = async ({ userId, clientId }) => {
+  try {
+    const findChats = await Chat.findOne({ userId, clientId });
+    console.log("findChats out: ", findChats);
+
+    if (findChats) {
+      const newMessage = findChats;
+
+      return { newMessage };
+    }
+
+    const newChat = {
+      userId,
+      clientId,
+      chats: [],
+    };
+
+    const newMessage = new Chat(newChat);
+
+    await newMessage.save();
+
+    return { newMessage };
+  } catch (e) {
+    const error = new HttpError(500, `Intermal server error : ${e}`);
+
+    return { error };
+  }
+};
+
 const clientPostMessageService = async ({ userId, clientId, client }) => {
   console.log("client: ", client);
 
@@ -310,4 +340,5 @@ module.exports = {
   clientChatRoomId,
   sendClientAttachmentService,
   getAllUserChatsService,
+  createClientChatroomService,
 };

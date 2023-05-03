@@ -82,6 +82,26 @@ const getAllClientChats = async (request, response, next) => {
 };
 
 // client
+
+const createClientChatroom = async (request, response, next) => {
+  const clientId = request.client._id;
+  const userId = request.params.id;
+
+  const result = await chatService.createClientChatroomService({
+    userId,
+    clientId,
+  });
+
+  const { newMessage, error } = result;
+
+  if (error) {
+    response.json({ error });
+    return next(error);
+  }
+
+  response.json({ status: 200, newMessage });
+};
+
 const clientPostMessage = async (request, response, next) => {
   const clientId = request.client._id;
 
@@ -165,6 +185,7 @@ module.exports = {
   sendAttachmentsFromUser,
   getAllClientChats,
   // ----------
+  createClientChatroom,
   clientPostMessage,
   clientChatRoomId,
   sendAttachmentsFromClient,
