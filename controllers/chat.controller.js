@@ -39,13 +39,16 @@ const userChatRoomId = async (request, response, next) => {
 
 const sendAttachmentsFromUser = async (request, response, next) => {
   const userId = request.user._id;
+  console.log("userId: ", userId);
 
   const { clientId } = request.body;
+  console.log("clientId: ", clientId);
 
   const url = request.protocol + "://" + request.get("host");
 
   const file = url + "/chatAttachments/" + request.files[0].filename;
   const userAttachment = file;
+  console.log("userAttachment: ", userAttachment);
 
   const result = await chatService.sendUserAttachmentService({
     userId,

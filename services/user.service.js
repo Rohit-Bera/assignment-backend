@@ -197,7 +197,7 @@ const deleteWorkerDemoService = async ({ imageId }) => {
 // get user image for client
 const getAllUserworkImageService = async () => {
   try {
-    const allUserWorkImage = await UserWorkImage.find();
+    const allUserWorkImage = await UserWorkImage.find().populate("user");
 
     if (!allUserWorkImage) {
       const error = new HttpError(404, "User images not found!");
@@ -459,28 +459,27 @@ const getAllClientsService = async () => {
     return { error };
   }
 };
-const searchUserService = async({name})=>{
+const searchUserService = async ({ name }) => {
   try {
-    const firstName =  new RegExp(name,"i");
-    const found = await User.find({firstName})
-    if(!found){
+    const firstName = new RegExp(name, "i");
+    const found = await User.find({ firstName });
+    if (!found) {
       const error = new HttpError(404, "something went wrong in the database!");
 
       return { error };
     }
-    if(found.length ==0)
-    {
+    if (found.length == 0) {
       const error = new HttpError(404, `there are no ${name} Assignment!`);
 
       return { error };
     }
-    return {found};
+    return { found };
   } catch (e) {
     const error = new HttpError(500, `Internal server error : ${e}`);
 
     return { error };
   }
-}
+};
 module.exports = {
   loginServices,
   // -----------------
