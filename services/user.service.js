@@ -461,8 +461,8 @@ const getAllClientsService = async () => {
 };
 const searchUserService = async ({ name }) => {
   try {
-    const firstName = new RegExp(name, "i");
-    const found = await User.find({ firstName });
+    const profession = new RegExp(name, "i");
+    const found = await User.find({ profession });
     if (!found) {
       const error = new HttpError(404, "something went wrong in the database!");
 
