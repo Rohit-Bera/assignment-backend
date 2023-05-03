@@ -154,7 +154,9 @@ const sendUserAttachmentService = async ({
 
 const createClientChatroomService = async ({ userId, clientId }) => {
   try {
-    const findChats = await Chat.findOne({ userId, clientId });
+    const findChats = await Chat.findOne({ userId, clientId })
+      .populate("clientId")
+      .populate("userId");
     console.log("findChats out: ", findChats);
 
     if (findChats) {
@@ -173,7 +175,16 @@ const createClientChatroomService = async ({ userId, clientId }) => {
 
     await newMessage.save();
 
-    return { newMessage };
+    const returnNewChat = await Chat.findOne({ userId, clientId })
+      .populate("clientId")
+      .populate("userId");
+    console.log("findChats out: ", returnNewChat);
+
+    if (returnNewChat) {
+      const newMessage = returnNewChat;
+
+      return { newMessage };
+    }
   } catch (e) {
     const error = new HttpError(500, `Intermal server error : ${e}`);
 
