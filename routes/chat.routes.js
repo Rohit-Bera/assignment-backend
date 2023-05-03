@@ -47,7 +47,7 @@ router.post(
 router.get("/getAllClientChats", auth, getAllClientChats);
 
 // client
-router.post("/createClientChatroom/:id", clientauth, createClientChatroom);
+router.get("/createClientChatroom/:id", clientauth, createClientChatroom);
 router.put("/postMessageClient", clientauth, clientPostMessage);
 router.get("/getClientchatRoomId/:id", clientauth, clientChatRoomId);
 router.post(
