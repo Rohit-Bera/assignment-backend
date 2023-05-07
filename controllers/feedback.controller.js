@@ -142,7 +142,7 @@ const getComplaintAPi = async (request, response, next) => {
   } else {
     const client = request?.client._id;
 
-    const reply = await feedbackServices.postComplaintService({
+    const reply = await feedbackServices.getComplaintService({
       client,
     });
 

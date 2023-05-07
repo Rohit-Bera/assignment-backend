@@ -204,6 +204,7 @@ const placeOrderService = async ({ id, client, bidStatus }) => {
   try {
     const bid = { bidStatus: bidStatus };
 
+    // logic of bid get rejected
     if (bidStatus === "rejected") {
       const rejected = await Usersbid.findByIdAndUpdate(
         { _id: id },
@@ -214,6 +215,7 @@ const placeOrderService = async ({ id, client, bidStatus }) => {
       return { rejected };
     }
 
+    // logic of bid getting accepted
     const accepted = await Usersbid.findByIdAndUpdate(
       { _id: id },
       { $set: bid },
@@ -258,6 +260,7 @@ const placeOrderService = async ({ id, client, bidStatus }) => {
       chats: [],
     };
 
+    // create a chat after placed order
     const findChat = await Chat.findOne({ clientId, userId });
 
     if (findChat) {
