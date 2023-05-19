@@ -37,6 +37,7 @@ const orderRoutes = require("./routes/order.routes");
 const feedbackRoutes = require("./routes/feedback.routes");
 const ratingRoutes = require("./routes/rating.routes");
 const chatRoutes = require("./routes/chat.routes");
+const paymentRoutes = require("./routes/payment.routes");
 
 // to access image
 app.use("/clientAttachments", express.static("upload/clientAttachments"));
@@ -50,6 +51,7 @@ app.use(orderRoutes);
 app.use(feedbackRoutes);
 app.use(ratingRoutes);
 app.use(chatRoutes);
+app.use(paymentRoutes);
 
 const port = process.env.PORT || 4000;
 
