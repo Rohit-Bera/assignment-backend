@@ -37,6 +37,7 @@ const orderRoutes = require("./routes/order.routes");
 const feedbackRoutes = require("./routes/feedback.routes");
 const ratingRoutes = require("./routes/rating.routes");
 const chatRoutes = require("./routes/chat.routes");
+// payment routes
 const paymentRoutes = require("./routes/payment.routes");
 
 // to access image
