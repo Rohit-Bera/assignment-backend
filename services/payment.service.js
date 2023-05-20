@@ -254,9 +254,10 @@ const payAmountService = async ({ clientId, _id, paymentInfo }) => {
 
 const getPaymentsClientService = async ({ clientId }) => {
   try {
-    const allPayments = await Payment.find({ client: clientId }).populate(
-      "order"
-    );
+    const allPayments = await Payment.find({ client: clientId })
+      .populate("order")
+      .populate("client")
+      .populate("assignment");
 
     if (!allPayments) {
       const error = new HttpError(404, ` no payments found! `);
