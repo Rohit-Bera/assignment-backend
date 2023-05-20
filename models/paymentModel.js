@@ -15,6 +15,10 @@ const paymentSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Client",
     },
+    assignmentId: {
+      type: Schema.Types.ObjectId,
+      ref: "Assignment",
+    },
     // status - payment is pending or not
     paymentInfo: {
       type: String,
