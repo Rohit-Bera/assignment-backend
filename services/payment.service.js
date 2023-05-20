@@ -11,6 +11,7 @@ const askForPaymentService = async ({
   userId,
   assignmentCost,
   paymentInfo,
+  assignmentId,
 }) => {
   try {
     const ifDonePayment = await Payment.findOne({ order: orderId });
@@ -34,6 +35,7 @@ const askForPaymentService = async ({
     const paymentData = {
       order: orderId,
       client: clientId,
+      assignment: assignmentId,
       user: userId,
       assignmentCost,
       paymentInfo,
@@ -256,7 +258,6 @@ const getPaymentsClientService = async ({ clientId }) => {
   try {
     const allPayments = await Payment.find({ client: clientId })
       .populate("order")
-      .populate("client")
       .populate("assignment");
 
     if (!allPayments) {
