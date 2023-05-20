@@ -17,18 +17,18 @@ const {
 // user
 // id -> orderId
 router.post("/askForPayment/:id", auth, askForPayment);
-router.get("/getAllPaymentWorker", auth, getAllPaymentsUser);
+router.get("/getAllPaymentUser", auth, getAllPaymentsUser);
 // user wallet
 router.get("/getBalance", auth, getBalanceWallet);
 router.put("/withdrawAmount", auth, withdrawFromWallet);
 
 // stripe payment gateway
-router.post("/walletIntentWorker", auth, createPaymentIntent);
+router.post("/walletIntentUser", auth, createPaymentIntent);
 
 // client
 // id -> paymentId
 router.put("/payAmount/:id", clientauth, payAmount);
-router.get("/getAllPaymentUser", clientauth, getAllPaymentsClient);
+router.get("/getAllPaymentClient", clientauth, getAllPaymentsClient);
 
 // stripe payment gateway
 router.post("/paymentIntent", clientauth, createPaymentIntent);

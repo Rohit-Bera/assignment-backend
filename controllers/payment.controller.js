@@ -105,8 +105,9 @@ const payAmount = async (request, response, next) => {
 
 const getAllPaymentsClient = async (request, response, next) => {
   const clientId = request.client._id;
+  console.log("clientId: ", clientId);
 
-  const result = await paymentService.getPaymentsUserService({ clientId });
+  const result = await paymentService.getPaymentsClientService({ clientId });
 
   const { allPayments, error } = result;
   if (error) {
