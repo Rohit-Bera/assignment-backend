@@ -8,7 +8,8 @@ redux , redux-persist for managing application state.
 # assignment-frontend-link
 You will find the assignment_frontend on - https://github.com/Montu1302/assignment-frontend
 
-![screen1](https://github.com/Rohit-Bera/assignment-backend/assets/76840811/e4ef8b43-562d-4951-854e-459298ea8909)
-![screen2](https://github.com/Rohit-Bera/assignment-backend/assets/76840811/43984831-04f8-41ca-95b7-f14502c45c75)
-![screen3](https://github.com/Rohit-Bera/assignment-backend/assets/76840811/d60e643c-85db-4a42-a436-3d86fd588e93)
-![screen4](https://github.com/Rohit-Bera/assignment-backend/assets/76840811/d9e5742b-eb7f-4b5c-91e9-eb3063a477ac)
+
+![screen1](https://github.com/Rohit-Bera/assignment-backend/assets/76840811/e8a45dc0-0261-4c4f-be40-92409cb53d0d)
+![screen2](https://github.com/Rohit-Bera/assignment-backend/assets/76840811/4d3e00a2-6772-4c8f-9ba3-384ac1353aa5)
+![screen3](https://github.com/Rohit-Bera/assignment-backend/assets/76840811/f1b87a01-8a5c-49d2-b508-dc54e40928ca)
+![screen4](https://github.com/Rohit-Bera/assignment-backend/assets/76840811/e53d3f49-8169-4f8e-a055-868994b494ef)
